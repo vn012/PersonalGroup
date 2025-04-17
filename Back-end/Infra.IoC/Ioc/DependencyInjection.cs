@@ -7,9 +7,11 @@ using System.Text;
 using Infra.Contexto;
 using Domain.Interfaces;
 using Infra.Repositories;
+using Aplication.Interfaces;
 using Aplication.Interfaces.Repositories;
 using Aplication.Services;
 using Aplication.Mapping;
+
 namespace Infra.IoC
 {
     public static class DependencyInjection
@@ -20,6 +22,9 @@ namespace Infra.IoC
             services.AddDbContext<Context>(options => options.UseNpgsql(connectionString));
             //Service
             services.AddScoped<INotesService, NotesService>();
+            services.AddScoped<INotificationService, NotificationService>();
+
+
             //Mapping
             services.AddAutoMapper(typeof(NotesProfile));
 

@@ -22,6 +22,7 @@ import { ref, onMounted } from 'vue'
 import TextInput from '@/components/TextInput.vue'
 import { useNotes } from '#imports'
 
+
 const noteList = ref<HTMLElement | null>(null)
 const { savedNotes, fetchNotes } = useNotes()
 

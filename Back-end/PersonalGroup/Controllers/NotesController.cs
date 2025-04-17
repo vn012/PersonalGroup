@@ -5,6 +5,8 @@ using Domain.Interfaces;
 using Aplication.Interfaces.Repositories;
 using Aplication.Services;
 using Aplication.DTOs.Notes;
+using Microsoft.AspNetCore.SignalR;
+using Microsoft.EntityFrameworkCore;
 
 namespace PersonalGroupAPI.Controllers
 {
@@ -13,9 +15,12 @@ namespace PersonalGroupAPI.Controllers
     public class NotesController : ControllerBase
     {
         private readonly INotesService _notesService;
-        public NotesController(INotesService notesService)
+        private readonly INotificationService _notificationService;
+
+        public NotesController(INotesService notesService, INotificationService notificationService)
         {
             _notesService = notesService;
+            _notificationService = notificationService;
         }
         [HttpGet]
         public async Task<IActionResult> Get()
@@ -52,17 +57,26 @@ namespace PersonalGroupAPI.Controllers
         {
             try
             {
+                if(!ModelState.IsValid)
+                    return BadRequest(ModelState);
+
                 var result = await _notesService.AddNoteWithTagsAndMediaAsync(noteDTO);
+
+                if(result == null)
+                    return BadRequest(ModelState);
+
+                // Envia para os clientes conectados via SignalR
+                await _notificationService.NotifyNoteCreatedAsync(result);
 
                 return CreatedAtAction(nameof(Get), new { id = result.Id }, result); 
             }
             catch (ArgumentException ex)
             {
-                return BadRequest(new { message = ex.Message }); // 400
+                return BadRequest(new { message = ex.Message });
             }
             catch (KeyNotFoundException ex)
             {
-                return NotFound(new { message = ex.Message }); // 404
+                return NotFound(new { message = ex.Message });
             }
             catch (Exception ex)
             {

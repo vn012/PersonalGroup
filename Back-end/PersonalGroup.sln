@@ -5,6 +5,7 @@ VisualStudioVersion = 17.13.35931.197
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonalGroupAPI", "PersonalGroup\PersonalGroupAPI.csproj", "{DCD3DE33-66E5-4ADA-8092-8682A9EC2695}"
 	ProjectSection(ProjectDependencies) = postProject
+		{5E7BF792-D1EB-4AD7-9A1D-D51F05029D6D} = {5E7BF792-D1EB-4AD7-9A1D-D51F05029D6D}
 		{F9F69ED2-DF81-4404-83BC-58FB2864BEF1} = {F9F69ED2-DF81-4404-83BC-58FB2864BEF1}
 	EndProjectSection
 EndProject

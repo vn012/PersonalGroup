@@ -43,7 +43,7 @@ namespace Aplication.Services
             try
             {
                 var notesDB = await _notesRepository.GetAllWithTagsAndMediaAsync();
-                notesDB = notesDB.Where(n => n.DeletedAt == null).ToList(); //isso é responsabilidade do repositorio, debugar com dados reais depois
+                notesDB = notesDB.Where(n => n.DeletedAt == null).ToList().OrderByDescending(n => n.Id) ; //isso é responsabilidade do repositorio, debugar com dados reais depois
 
                 return _mapper.Map<IEnumerable<ResponseNotesDTO>>(notesDB);
             }catch (Exception ex)
