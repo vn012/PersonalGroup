@@ -5,7 +5,7 @@ import type { NotesResponse } from '../types/response/notes-response'
 //#region  GET
 export const getNotes = async (): Promise<NotesResponse[]> => {
     const config = useRuntimeConfig()
-    const API_URL = config.public.apiBaseUrl + "Notes"
+    const API_URL = config.public.apiBaseUrl + "api/Notes"
 
     const res = await fetch(API_URL)
     return res.json()
@@ -16,7 +16,7 @@ export const getNotes = async (): Promise<NotesResponse[]> => {
 //#region POST
 export const createNote = async (note: NotesRequest) => {
     const config = useRuntimeConfig()
-    const API_URL = config.public.apiBaseUrl + "Notes"
+    const API_URL = config.public.apiBaseUrl + "api/Notes"
 
     const res = await fetch(API_URL, {
         method: 'POST',

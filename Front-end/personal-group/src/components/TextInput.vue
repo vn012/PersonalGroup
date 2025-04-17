@@ -14,16 +14,41 @@
     </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
+import type { NotesRequest } from '~/types/request/notes-request'
 
 const emit = defineEmits(['submit'])
 const input = ref('')
 
 function emitNote() {
     if (input.value.trim()) {
-        emit('submit', input.value)
+        const note: NotesRequest = {
+            userId: 1,
+            text: input.value,
+            tags: [],
+            mediaItems: []
+            // pending: true, 
+        }
+
+        emit('submit', note) // Atualiza UI
+
+        // Chamada da API
+
+        try {
+            const res = $fetch('https://localhost:7004/api/Notes', {
+                method: 'POST',
+                body: note,
+            })
+
+            console.log('Nota criada:', res)
+        } catch (err) {
+            console.error('Erro ao criar nota:', err)
+            // Tratar erro aqui, exibir notificação, etc.
+        }
         input.value = ''
     }
 }
+
+
 </script>

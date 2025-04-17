@@ -9,6 +9,14 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import TabBar from '~/components/TabBar.vue'
+import { useSignalR } from '~/composables/useSignalR';
+
+onMounted(() => {
+  const { startConnection } = useSignalR();
+  const userId = 1;
+  startConnection(userId);
+});
+
 </script>

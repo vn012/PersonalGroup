@@ -14,7 +14,7 @@ namespace Aplication.DTOs.Notes
         public int UserId { get; set; }
         public string? Text { get; set; }
 
-        public List<TagDTO> Tags { get; set; } = new();
-        public List<CreateNoteMediaDTO> MediaItems { get; set; } = new();
+        public List<TagDTO>? Tags { get; set; } = new();
+        public List<CreateNoteMediaDTO>? MediaItems { get; set; } = new();
     }
 }
